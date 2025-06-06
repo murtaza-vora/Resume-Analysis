@@ -1,0 +1,263 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block extrastyle %}
+
+  <link rel="stylesheet" href="{% static 'vendors/datatables.net-bs4/dataTables.bootstrap4.css' %}">
+  <link rel="stylesheet" href="{% static 'js/select.dataTables.min.css' %}">
+
+{% endblock extrastyle %}
+
+{% block pro_banner %}
+
+  {% include 'includes/pro-banner.html' %}
+
+{% endblock pro_banner %}
+
+{% block content %}
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="home-tab">
+                <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences" role="tab" aria-selected="false">Audiences</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics" role="tab" aria-selected="false">Demographics</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more" role="tab" aria-selected="false">More</a>
+                    </li>
+                  </ul>
+                  <div>
+                    <div class="btn-wrapper">
+                      <a href="#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
+                      <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
+                      <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-content tab-content-basic">
+                  <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="statistics-details d-flex align-items-center justify-content-between">
+                          <div>
+                            <p class="statistics-title">Total No. of User's </p>
+                            <h3 class="rate-percentage">{{ total_users }}</h3>
+                            <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
+                          </div>
+                          <div>
+                            <p class="statistics-title">Total Countries</p>
+                            <h3 class="rate-percentage">{{ unique_countries }}</h3>
+                            <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
+                          </div>
+                          <div>
+                            <p class="statistics-title">Single Degree Holder's</p>
+                            <h3 class="rate-percentage">{{  single_degree_holders }}</h3>
+                            <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span></span></p>
+                          </div>
+                          <div class="d-none d-md-block">
+                            <p class="statistics-title">Multiple Degree Holder's</p>
+                            <h3 class="rate-percentage">{{ multiple_degree_holders }}</h3>
+                            <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                      
+                      <div class="row">
+    <div class="col-lg-8 d-flex flex-column">
+        <div class="row flex-grow">
+            <div class="col-12 col-lg-4 col-lg-12 grid-margin stretch-card">
+                <div class="card card-rounded">
+                    <div class="card-body">
+                        <div class="d-sm-flex justify-content-between align-items-start">
+                            <div>
+                                <h4 class="card-title card-title-dash">Age Distribution</h4>
+                                <h5 class="card-subtitle card-subtitle-dash">This graph displays total number of users with their age category</h5>
+                            </div>
+                            <div id="performance-line-legend"></div>
+                        </div>
+                        <div class="chartjs-wrapper mt-5">
+                            <canvas id="performaneLine"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 d-flex flex-column">
+        <div class="row flex-grow">
+            <div class="col-md-6 col-lg-12 grid-margin stretch-card">
+                <div class="card bg-primary card-rounded">
+                    <div class="card-body pb-0">
+                        <h4 class="card-title card-title-dash text-white mb-4">Age Summary</h4>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="status-summary-light-white mb-1 text-white">Average Age</p>
+                                <h2 class="text-info text-white">21</h2>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="status-summary-chart-wrapper pb-4">
+                                    <canvas id="status-summary"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-12 grid-margin stretch-card">
+                <div class="card card-rounded">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between align-items-center mb-2 mb-sm-0">
+                                    <div class="circle-progress-width">
+                                        <div id="totalVisitors" class="progressbar-js-circle pr-2"></div>
+                                    </div>
+                                    <div>
+                                        <p class="text-small mb-2">Avg. age %</p>
+                                        <h4 class="mb-0 fw-bold">12.75%</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="circle-progress-width">
+                                        <div id="visitperday" class="progressbar-js-circle pr-2"></div>
+                                    </div>
+                                    <div>
+                                        <p class="text-small mb-2">Avg. age No.</p>
+                                        <h4 class="mb-0 fw-bold">1330</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 d-flex flex-column">
+        <div class="row flex-grow">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card card-rounded">
+                    <div class="card-body">
+                        <h4 class="card-title card-title-dash">Demographic Data</h4>
+                        <p class="card-subtitle card-subtitle-dash">This graph shows top 10 countries with maximum number of users</p>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle toggle-dark btn-lg mb-0 me-0" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> This month </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </div>
+                        <div class="d-sm-flex align-items-center mt-1 justify-content-between">
+                            <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+                                <h2 class="me-2 fw-bold">United Kingdom</h2><h4 class="me-2">-</h4><h4 class="text-success">+ 5000 users</h4>
+                            </div>
+                            <div class="me-3"><div id="marketing-overview-legend"></div></div>
+                        </div>
+                        <div class="chartjs-bar-wrapper mt-3">
+                            <canvas id="marketingOverview"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 d-flex flex-column">
+        <div class="row flex-grow">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card card-rounded">
+                    <div class="card-body">
+                        <h4 class="card-title">Candidate Score Summary</h4>
+                        <div class="table-responsive pt-3">
+                            <table id="candidateTable" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User ID</th>
+                                        <th>Score</th>
+                                        <th>Resume Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for candidate in candidates|slice:":5" %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ candidate.user_id }}</td>
+                                        <td>{{ candidate.score }}</td>
+                                        <td>{{ candidate.resume_status }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            <ul class="pagination justify-content-center">
+                                {% if candidates.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ candidates.previous_page_number }}">Previous</a>
+                                </li>
+                                {% endif %}
+                                {% for i in candidates.paginator.page_range %}
+                                {% if candidates.number == i %}
+                                <li class="page-item active">
+                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                                {% if candidates.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ candidates.next_page_number }}">Next</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- main-panel ends -->
+      {% endblock %}
+
+      {% block extra_js %}
+
+      <!-- Plugin js for this page -->
+      <script src="{% static 'vendors/chart.js/Chart.min.js' %}"></script>
+      <script src="{% static 'vendors/progressbar.js/progressbar.min.js' %}"></script>
+
+      <!-- Custom js for this page-->
+      <script src="{% static 'js/jquery.cookie.js' %}" type="text/javascript"></script>
+      <script src="{% static 'js/dashboard.js' %}"></script>
+      <script src="{% static 'js/Chart.roundedBarCharts.js' %}"></script>
+      <!-- End custom js for this page-->
+
+      {% endblock extra_js %}
+

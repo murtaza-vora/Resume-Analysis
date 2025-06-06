@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Candidate Score Summary</title>
+  <!-- Add necessary CSS and JS dependencies -->
+  <!-- For example, Bootstrap CSS and jQuery -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Candidate Score Summary</h4>
+            <div class="table-responsive pt-3">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>User ID</th>
+                    <th>Score</th>
+                    <th>Resume Status</th>
+                    <th>Areas of Improvement</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for candidate in candidates %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ candidate.user_id }}</td>
+                      <td>{{ candidate.score }}</td>
+                      <td>{{ candidate.resume_status }}</td>
+                      <td>
+                        <ul>
+                          {% for improvement in candidate.area_of_improvement %}
+                            <li>{{ improvement }}</li>
+                          {% endfor %}
+                        </ul>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

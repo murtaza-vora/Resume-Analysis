@@ -1,0 +1,422 @@
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+{#    <title>Resume Analysis</title>#}
+{#    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>#}
+{#</head>#}
+{#<body>#}
+{#    <h1>Resume Analysis</h1>#}
+{##}
+{#    <!-- Graph Section -->#}
+{#    <h2>Top Ten Industries based on Job Titles</h2>#}
+{#    <div id="graph"></div>#}
+{##}
+{#    <script type="text/javascript">#}
+{#        var graphData = {{ graph_data|safe }};#}
+{#        var industryNames = graphData.map(function(item) { return item.industry; });#}
+{#        var excellentCounts = graphData.map(function(item) { return item.excellent_count; });#}
+{#        var averageCounts = graphData.map(function(item) { return item.average_count; });#}
+{#        var badCounts = graphData.map(function(item) { return item.bad_count; });#}
+{##}
+{#        var trace1 = {#}
+{#            x: industryNames,#}
+{#            y: excellentCounts,#}
+{#            name: 'Excellent',#}
+{#            type: 'bar'#}
+{#        };#}
+{##}
+{#        var trace2 = {#}
+{#            x: industryNames,#}
+{#            y: averageCounts,#}
+{#            name: 'Average',#}
+{#            type: 'bar'#}
+{#        };#}
+{##}
+{#        var trace3 = {#}
+{#            x: industryNames,#}
+{#            y: badCounts,#}
+{#            name: 'Bad',#}
+{#            type: 'bar'#}
+{#        };#}
+{##}
+{#        var data = [trace1, trace2, trace3];#}
+{##}
+{#        var layout = {#}
+{#            title: 'Top Ten Industries based on Job Titles',#}
+{#            xaxis: {#}
+{#                title: 'Industry'#}
+{#            },#}
+{#            yaxis: {#}
+{#                title: 'Count'#}
+{#            }#}
+{#        };#}
+{##}
+{#        Plotly.newPlot('graph', data, layout);#}
+{#    </script>#}
+{##}
+{#    <!-- Table Section -->#}
+{#    <h2>Score-based Categories</h2>#}
+{#    <table>#}
+{#        <tr>#}
+{#            <th>Industry</th>#}
+{#            <th>Excellent Count</th>#}
+{#            <th>Average Count</th>#}
+{#            <th>Bad Count</th>#}
+{#        </tr>#}
+{#        {% for item in graph_data %}#}
+{#        <tr>#}
+{#            <td>{{ item.industry }}</td>#}
+{#            <td>{{ item.excellent_count }}</td>#}
+{#            <td>{{ item.average_count }}</td>#}
+{#            <td>{{ item.bad_count }}</td>#}
+{#        </tr>#}
+{#        {% endfor %}#}
+{#    </table>#}
+{#</body>#}
+{#</html>#}
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+{#    <title>Resume Analysis</title>#}
+{#    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>#}
+{#    <style>#}
+{#        body {#}
+{#            font-family: Arial, sans-serif;#}
+{#        }#}
+{#        h1, h2 {#}
+{#            margin-bottom: 20px;#}
+{#        }#}
+{#        #graph {#}
+{#            margin-bottom: 20px;#}
+{#        }#}
+{#        table {#}
+{#            border-collapse: collapse;#}
+{#            width: 100%;#}
+{#        }#}
+{#        th, td {#}
+{#            padding: 8px;#}
+{#            text-align: left;#}
+{#            border-bottom: 1px solid #ddd;#}
+{#        }#}
+{#        th {#}
+{#            background-color: #f2f2f2;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <h1>Resume Analysis</h1>#}
+{##}
+{#    <!-- Graph Section -->#}
+{#    <h2>Top Ten Industries based on Job Titles</h2>#}
+{#    <div id="graph"></div>#}
+{##}
+{#    <script type="text/javascript">#}
+{#        var graphData = {{ graph_data|safe }};#}
+{#        var industryNames = graphData.map(function(item) { return item.industry; });#}
+{#        var excellentCounts = graphData.map(function(item) { return item.excellent_count; });#}
+{#        var averageCounts = graphData.map(function(item) { return item.average_count; });#}
+{#        var badCounts = graphData.map(function(item) { return item.bad_count; });#}
+{##}
+{#var trace1 = {#}
+{#    x: industryNames,#}
+{#    y: excellentCounts,#}
+{#    name: 'Excellent',#}
+{#    type: 'bar',#}
+{#    marker: {#}
+{#        color: '#00BFFF'#}
+{##}
+{#    }#}
+{#};#}
+{##}
+{#var trace2 = {#}
+{#    x: industryNames,#}
+{#    y: averageCounts,#}
+{#    name: 'Average',#}
+{#    type: 'bar',#}
+{#    marker: {#}
+{#         color: '#5F9EA0'#}
+{#    }#}
+{#};#}
+{##}
+{#var trace3 = {#}
+{#    x: industryNames,#}
+{#    y: badCounts,#}
+{#    name: 'Bad',#}
+{#    type: 'bar',#}
+{#    marker: {#}
+{#        color: '#6699CC'#}
+{#    }#}
+{#};#}
+{##}
+{##}
+{#        var data = [trace1, trace2, trace3];#}
+{##}
+{#        var layout = {#}
+{#            title: 'Top Ten Industries based on Score Categories',#}
+{#            xaxis: {#}
+{#                title: 'Industry'#}
+{#            },#}
+{#            yaxis: {#}
+{#                title: 'Count'#}
+{#            }#}
+{#        };#}
+{##}
+{#        Plotly.newPlot('graph', data, layout);#}
+{#    </script>#}
+{##}
+{#    <!-- Table Section -->#}
+{#    <h2>Score-based Categories</h2>#}
+{#    <table>#}
+{#        <tr>#}
+{#            <th>Industry</th>#}
+{#            <th>Excellent Count</th>#}
+{#            <th>Average Count</th>#}
+{#            <th>Bad Count</th>#}
+{#        </tr>#}
+{#        {% for item in graph_data %}#}
+{#        <tr>#}
+{#            <td>{{ item.industry }}</td>#}
+{#            <td>{{ item.excellent_count }}</td>#}
+{#            <td>{{ item.average_count }}</td>#}
+{#            <td>{{ item.bad_count }}</td>#}
+{#        </tr>#}
+{#        {% endfor %}#}
+{#    </table>#}
+{#</body>#}
+{#</html>#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+{#    <title>Resume Analysis</title>#}
+{#    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>#}
+{#    <style>#}
+{#        body {#}
+{#            font-family: Arial, sans-serif;#}
+{#        }#}
+{#        h1, h2 {#}
+{#            margin-bottom: 20px;#}
+{#        }#}
+{#        #graph-container {#}
+{#            display: flex;#}
+{#            flex-wrap: wrap;#}
+{#            gap: 20px;#}
+{#        }#}
+{#        #graph {#}
+{#            flex: 1;#}
+{#        }#}
+{#        table {#}
+{#            border-collapse: collapse;#}
+{#            width: 100%;#}
+{#        }#}
+{#        th, td {#}
+{#            padding: 8px;#}
+{#            text-align: left;#}
+{#            border-bottom: 1px solid #ddd;#}
+{#        }#}
+{#        th {#}
+{#            background-color: #f2f2f2;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <h1>Resume Analysis</h1>#}
+{##}
+{#    <div id="graph-container">#}
+{#        <!-- Graph Section -->#}
+{#        <div id="graph"></div>#}
+{##}
+{#        <!-- Table Section -->#}
+{#        <div>#}
+{#            <h2>Score-based Categories</h2>#}
+{#            <table>#}
+{#                <tr>#}
+{#                    <th>Industry</th>#}
+{#                    <th>Excellent Count</th>#}
+{#                    <th>Average Count</th>#}
+{#                    <th>Bad Count</th>#}
+{#                </tr>#}
+{#                {% for item in graph_data %}#}
+{#                <tr>#}
+{#                    <td>{{ item.industry }}</td>#}
+{#                    <td>{{ item.excellent_count }}</td>#}
+{#                    <td>{{ item.average_count }}</td>#}
+{#                    <td>{{ item.bad_count }}</td>#}
+{#                </tr>#}
+{#                {% endfor %}#}
+{#            </table>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <script type="text/javascript">#}
+{#        var graphData = {{ graph_data|safe }};#}
+{#        var industryNames = graphData.map(function(item) { return item.industry; });#}
+{#        var excellentCounts = graphData.map(function(item) { return item.excellent_count; });#}
+{#        var averageCounts = graphData.map(function(item) { return item.average_count; });#}
+{#        var badCounts = graphData.map(function(item) { return item.bad_count; });#}
+{##}
+{#        var trace1 = {#}
+{#            x: industryNames,#}
+{#            y: excellentCounts,#}
+{#            name: 'Excellent',#}
+{#            type: 'bar',#}
+{#            marker: {#}
+{#                color: '#00BFFF'#}
+{#            }#}
+{#        };#}
+{##}
+{#        var trace2 = {#}
+{#            x: industryNames,#}
+{#            y: averageCounts,#}
+{#            name: 'Average',#}
+{#            type: 'bar',#}
+{#            marker: {#}
+{#                color: '#5F9EA0'#}
+{#            }#}
+{#        };#}
+{##}
+{#        var trace3 = {#}
+{#            x: industryNames,#}
+{#            y: badCounts,#}
+{#            name: 'Bad',#}
+{#            type: 'bar',#}
+{#            marker: {#}
+{#                color: '#6699CC'#}
+{#            }#}
+{#        };#}
+{##}
+{#        var data = [trace1, trace2, trace3];#}
+{##}
+{#        var layout = {#}
+{#            title: 'Top Ten Industries based on Score Categories',#}
+{#            xaxis: {#}
+{#                title: 'Industry'#}
+{#            },#}
+{#            yaxis: {#}
+{#                title: 'Count'#}
+{#            }#}
+{#        };#}
+{##}
+{#        Plotly.newPlot('graph', data, layout);#}
+{#    </script>#}
+{#</body>#}
+{#</html>#}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+        #graph-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        #graph {
+            flex: 0 0 60%;
+            max-width: 750px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resume Analysis</h1>
+
+    <div id="graph-container">
+        <!-- Graph Section -->
+        <div id="graph"></div>
+
+        <!-- Table Section -->
+        <div>
+            <h2>Industries based on Score Categories</h2>
+            <table>
+                <tr>
+                    <th>Industry</th>
+                    <th>Excellent Count</th>
+                    <th>Average Count</th>
+                    <th>Bad Count</th>
+                </tr>
+                {% for item in graph_data %}
+                <tr>
+                    <td>{{ item.industry }}</td>
+                    <td>{{ item.excellent_count }}</td>
+                    <td>{{ item.average_count }}</td>
+                    <td>{{ item.bad_count }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var graphData = {{ graph_data|safe }};
+        var industryNames = graphData.map(function(item) { return item.industry; });
+        var excellentCounts = graphData.map(function(item) { return item.excellent_count; });
+        var averageCounts = graphData.map(function(item) { return item.average_count; });
+        var badCounts = graphData.map(function(item) { return item.bad_count; });
+
+        var trace1 = {
+            x: industryNames,
+            y: excellentCounts,
+            name: 'Excellent',
+            type: 'bar',
+            marker: {
+                color: '#00BFFF'
+            }
+        };
+
+        var trace2 = {
+            x: industryNames,
+            y: averageCounts,
+            name: 'Average',
+            type: 'bar',
+            marker: {
+                color: '#5F9EA0'
+            }
+        };
+
+        var trace3 = {
+            x: industryNames,
+            y: badCounts,
+            name: 'Bad',
+            type: 'bar',
+            marker: {
+                color: '#6699CC'
+            }
+        };
+
+        var data = [trace1, trace2, trace3];
+
+        var layout = {
+            title: 'Top Ten Industries based on Score Categories',
+            xaxis: {
+                title: 'Industry'
+            },
+            yaxis: {
+                title: 'Count'
+            }
+        };
+
+        Plotly.newPlot('graph', data, layout);
+    </script>
+</body>
+</html>
+
